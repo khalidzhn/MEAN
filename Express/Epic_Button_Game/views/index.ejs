@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let socket = io.connect();
+            $('#count').click(() => {
+                socket.emit('count_clicked', { data: 'Count button clicked' })
+            })
+            socket.on('count_response', data => {
+                $('#countText').html(`<h1 id="countText" >The button has been pushed ${data.response} times</h1>`)
+            })
+            $('#reset').click(() => {
+                socket.emit('reset_clicked', { data: 'Reset button clicked' })
+            })
+            socket.on('reset_response', data => {
+                $('#countText').html(`<h1 id="countText" >The button has been pushed ${data.response} times</h1>`)
+            })
+        })
+    </script>
+    <title>Epic Button Game</title>
+</head>
+
+<body>
+    <div>
+        <div >
+            <h1 id="countText" >The button has been pushed 0 times</h1>
+            <h5>press the button to update the count!</h5>
+        </div>
+        <div class="row justify-content-center">
+            <button id="count">Epic Button</button>
+            <button id="reset" >Reset Count</button>
+        </div>
+    </div>
+</body>
+
+</html>

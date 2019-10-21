@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Survey Form</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            var socket = io.connect();
+            $('#survey').submit(function (e){
+                e.preventDefault();
+                socket.emit("posting_form",{
+                    name: $("#name").val(),
+                    location: $("#location").val(),
+                    language: $("#language").val(),
+                });
+            });
+            socket.on('updated_message', function (data){
+                var object = JSON.stringify(data.info);
+                $('#message').html("You emitted the following information to the server: " + JSON.stringify(data.response));
+            });
+            socket.on('random_number', function(data){
+            $('#number').html("Your lucky number emitted by the server is : " + JSON.stringify(data.response));
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="message"></div>
+	<div id="number"></div>
+    <form action="" id="survey">
+        <label for="name">Your Name:</label>
+        <input type="text" name="name" id="name">
+        <label for="location"> Location:</label>
+        <select name="location" id="location">
+            <option value="San Jose">Riyadh</option>
+            <option value="San Francisco">Jaddah</option>
+            <option value="Seatle">Dammam</option>
+        </select>
+        <label for="language">Favorite Language:</label>
+        <select name="language" id="language">
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="C#">C++</option>
+        </select>
+        <button class="submit">Submit</button>
+    </form>
+</body>
+</html>

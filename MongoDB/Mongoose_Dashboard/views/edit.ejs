@@ -1,0 +1,24 @@
+<html>
+    <body>
+        <h1>Edit Rabbit <%=ra.name%></h1>
+        <form action="/change/<%=ra._id%>" method="post">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="name" value="<%=ra.name%>"></td>
+                </tr>
+                <br>
+                <tr>
+                    <td>Favorite food:</td>
+                    <td><input type="text" name="favorite_food" value="<%=ra.favorite_food%>"></td>
+                </tr>
+                <br>
+            </table>
+            <input type="submit" value="Submit">
+        </form>
+        <br>
+        <form action="/delete/<%=ra._id%>" method="post">
+            <input type="submit" value="DELETE THIS Rabbit">
+        </form>          
+    </body>
+</html>

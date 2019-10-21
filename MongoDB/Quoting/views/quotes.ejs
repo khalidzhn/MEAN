@@ -1,0 +1,9 @@
+<body>
+    <h1>Here are some Quotes!</h1>
+    <% for (var x in arr) { %>
+        <h4>"<%= arr[x].message %>"</h4>
+        <h3>-<%= arr[x].name %> at <%=arr[x].updatedAt%></h3>
+        <hr>
+    <% } %>
+    <a href="/"> Add another quote</a>
+</body>
